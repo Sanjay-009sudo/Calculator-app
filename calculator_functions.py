@@ -57,6 +57,8 @@ def backspace() -> None:
     entry.delete(len(entry.get()) - 1)
 
 # Function to handle keyboard events
+# Function to handle keyboard events
+# Function to handle keyboard events
 def key_press(event) -> None:
     """
     Method that determines whether a button press should push an int or str to function "button_click()".
@@ -64,7 +66,7 @@ def key_press(event) -> None:
     """
     key = event.char
     if key.isdigit():
-        button_click(int(key))
+        entry.insert(tk.END, key)  # Insert the pressed number directly into the entry field
     elif key == ".":
         add_decimal()
     elif key in ["+", "-", "*", "/"]:
@@ -73,6 +75,10 @@ def key_press(event) -> None:
         backspace()
     elif key == "\r":
         evaluate()
+
+
+
+
 
 def calculate_sqrt() -> None:
     """
