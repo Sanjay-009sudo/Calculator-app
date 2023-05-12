@@ -14,6 +14,12 @@ def evaluate() -> None:
         if expression.endswith(("*", "/", "+", "-")) or expression.count("=") > 1:
             raise ValueError("Invalid Expression")
         result = eval(expression)
+        
+        # Handle divide by zero error
+        if isinstance(result, (int, float)) and not isinstance(result, bool):
+            if result == float('inf'):
+                raise ZeroDivisionError("Divide by zero error")
+        
         entry.delete(0, tk.END)
         entry.insert(tk.END, result)
         history.insert(tk.END, f"{expression} = {result}")
@@ -21,6 +27,9 @@ def evaluate() -> None:
             play_game(result)
     except (SyntaxError, ValueError, NameError):
         messagebox.showerror("Error", "Invalid Expression")
+    except ZeroDivisionError:
+        messagebox.showerror("Error", "Cannot divide by zero")
+
 
 def clear() -> None:
     """
